@@ -1,0 +1,67 @@
+//Java == means Groovy is() [reference comparison]
+//Java .equals means Groovy == [value comparison], but Groovy adds a check for null so it's exception safe
+
+//Groovy native syntax
+def list = [1, 4, 6, 9]
+
+def someKey = '22'
+def map = [CA: 'California', MI: 'Michigan']
+map = [:]
+map << ['Not a valid-Java-identifier': "AllowedInGroovy"]
+map << [(someKey): "Inserts 22:this string"]
+
+def inclusiveRange = 10..20
+def exclusiveRange = 10..<20
+def callMethodOnRange = (5..10).size()
+
+def pattern = ~/fo*/
+
+//Like list.add()
+list << 5
+
+//in keyword calls list.contains()
+assert 5 in list
+assert 15 in exclusiveRange
+
+//Groovy's switch is NOT typed on the cases...
+def x = 1.23
+def result = ""
+switch (x) 
+{
+	case "foo": result = "Found foo."
+	case [4,5,6,'inList']:
+		result = "That was a list!"
+		break
+	case Integer:
+		result = "That was an integer!"
+		break
+	case { it > 3 }:
+		result = "That number was evaulated by a closure, and it's greater than three."
+		break
+	default: result = "default"
+}
+
+def val1 = null
+//Can we do this?
+def val2 = void
+def val3 = 0
+def val4
+def val5 = ""
+assert (val1 == false)
+assert (val2 == false)
+assert (val3 == false)
+assert (val4 == false)
+assert (val5 == false)
+
+//Safe dereference: ?.
+
+try
+{
+	...
+}
+catch (any)
+{
+	...
+	//Recover
+}
+
